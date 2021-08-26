@@ -1,0 +1,16 @@
+# mount drive
+def mountStorageContainer(storageAccount, storageAccountKey, storageContainer, blobMountPoint):
+  mountStatus = dbutils.fs.mount(
+    source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
+    mount_point = blobMountPoint,
+    extra_configs = {"fs.azure.account.key." + storageAccount + ".blob.core.windows.net": storageAccountKey})
+  print("Status of mount of container " + storageContainer + " is: " + str(mountStatus))
+  
+storageAccount = "storagename"
+storageAccountKey="keys*****************************"
+try:
+    mountStorageContainer(storageAccount, storageAccountKey, "<countainer name>", "/mnt/<your_own_name>")
+except:
+  pass
+  
+display(dbutils.fs.mounts())
