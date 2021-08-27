@@ -1,0 +1,12 @@
+## load data
+df=spark.read.format("parquet").option("inferSchema", "true").option("header", true).load(file_path
+
+df.show() #text style table output
+data.show(n=1, vertical=True)
+display(df) #better table output
+
+###some characters of the spark dataframe
+data.count() #rows
+data.columns
+data_sample=data.sample(False, fraction=0.1)
+data_sort=data.sort("timestamp")
