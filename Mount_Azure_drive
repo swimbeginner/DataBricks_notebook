@@ -14,3 +14,20 @@ except:
   pass
   
 display(dbutils.fs.mounts())
+
+##################
+use dbutils to transfer file from one storage to another
+#Azure storage, you could NOT create folder, just create to the file level, this is a test
+#dbutils.fs.put('/mnt/testkelvin/test/foldertest/readme.text', "Contents of readme")
+#below folder has one subfolders, for more levels, please use recursive methods.
+##########
+base_source='/mnt/source'
+base_target='/mnt/target'
+folders = dbutils.fs.ls(base_source)
+print(len(folders))
+for i in range(len(folders)):
+  folder_name = folders[i].name
+  files=dbutils.fs.ls(base_source+'/'+folder_name)
+  for file in files:
+    if '.parquet' in file.name:
+      dbutils.fs.cp(base_source+'/'+folder_name+'/'+file.name, base_target+base_source2+'/'+file.name)
