@@ -12,13 +12,17 @@ try:
     mountStorageContainer(storageAccount, storageAccountKey, "<countainer name>", "/mnt/<your_own_name>")
 except:
   pass
-  
+
+###########dbutils functions:
+
 display(dbutils.fs.mounts())
+#dbutils.fs.mkdirs("/FileStore/shared_download")
+#dbutils.fs.cp(filepath, "/FileStore/shared_download/")
 
 ##################
 use dbutils to transfer file from one storage to another
 #Azure storage, you could NOT create folder, just create to the file level, this is a test
-#dbutils.fs.put('/mnt/testkelvin/test/foldertest/readme.text', "Contents of readme")
+#dbutils.fs.put('/mnt/test/foldertest/readme.text', "Contents of readme")
 #below folder has one subfolders, for more levels, please use recursive methods.
 ##########
 base_source='/mnt/source'
