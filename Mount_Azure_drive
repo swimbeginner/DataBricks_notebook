@@ -14,7 +14,8 @@ except:
   pass
 
 ###########dbutils functions:
-
+dbutils.fs.help()
+dbutils.fs.head(filepath) #to show 
 display(dbutils.fs.mounts())
 #dbutils.fs.mkdirs("/FileStore/shared_download")
 #dbutils.fs.cp(filepath, "/FileStore/shared_download/")
