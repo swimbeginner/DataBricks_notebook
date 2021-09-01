@@ -1,5 +1,5 @@
 ## load data
-df=spark.read.format("parquet").option("inferSchema", "true").option("header", true).load(file_path
+df=spark.read.format("parquet").option("inferSchema", "true").option("header", true).load(file_path)
 
 df.show() #text style table output
 data.show(n=1, vertical=True)
@@ -14,3 +14,14 @@ data_sort=data.sort("timestamp")
 ######filter
 data.filter(data["Id"]==1290)
 data.filter(data["Id"]==1290).count()
+
+### describe
+data.describe().show()
+
+# correlation
+data.stat.corr("column1", "column2")
+
+#check the frequency items:
+data.stat.freqItems(("columns1")).show()
+
+#data.sample(fraction=0.05, withReplacement=False)
