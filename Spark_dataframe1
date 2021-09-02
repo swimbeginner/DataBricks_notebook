@@ -24,4 +24,22 @@ data.stat.corr("column1", "column2")
 #check the frequency items:
 data.stat.freqItems(("columns1")).show()
 
-#data.sample(fraction=0.05, withReplacement=False)
+#sample
+data.sample(fraction=0.05, withReplacement=False)
+
+#sql 
+data.createOrReplaceTempView("tablename")
+spark.sql('SELECT id, min(column1), max(column2),  stddev(colum3)\
+          FROM table \
+          Broup by id').show()
+          
+#bucket, create 10 buckets and create histgram
+spark.sql('SELECT id, floor(column*10/max_column) bucket FROM table').show()
+spark.sql("SELECT count(*), floor(column*10/max_column) bucket FROM table GROUP BY bucket ORDER BY bucket ").show()
+
+
+#timeSeries 
+spark.sql.("SELECT datetime, id, data, \
+            avg(data) OVER ")
+#mean
+df.groupBy("id").agg({'temp':'mean'})
