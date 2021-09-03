@@ -1,5 +1,18 @@
+#help:
+help(eventsDF.distinct)
+
 ## load data
 df=spark.read.format("parquet").option("inferSchema", "true").option("header", true).load(file_path)
+
+##remove null
+revenueDF = eventsDF.filter(col("ecommerce.purchase_revenue_in_usd").isNotNull())
+# count distinct rows
+eventsDF.distinct().count()
+# sort
+increaseTimestampsDF = eventsDF.sort("event_timestamp")
+decreaseTimestampsDF = eventsDF.sort(col("event_timestamp").desc())
+decreaseSessionsDF = eventsDF.sort(col("user_first_touch_timestamp"), col("event_timestamp"))
+decreaseSessionsDF = eventsDF.sort(col("user_first_touch_timestamp").desc(), col("event_timestamp"))
 
 df.show() #text style table output
 data.show(n=1, vertical=True)
@@ -40,6 +53,7 @@ spark.sql("SELECT count(*), floor(column*10/max_column) bucket FROM table GROUP 
 
 #timeSeries 
 spark.sql.("SELECT datetime, id, data, \
-            avg(data) OVER ")
+            avg(data) OVER (PARTITION BY ")
 #mean
 df.groupBy("id").agg({'temp':'mean'})
+
