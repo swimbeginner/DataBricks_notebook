@@ -1,0 +1,14 @@
+import pyspark.sql.functions as F
+
+#get the current date month and day
+df_curdate=spark.createDataFrame([["1"]],['id'])
+df_curdate=df_curdate.select(F.current_date().alias("current_date"),F.year("current_date").alias("year"), F.month("current_date").alias("month"),  F.dayofmonth("current_date").alias("day"))
+cur_year=df_curdate.first()['year']
+cur_month=df_curdate.first()['month']
+cur_day=df_curdate.first()['day']
+
+df_prevdate=spark.createDataFrame([["1"]],['id'])
+df_prevdate=df_prevdate.select(F.date_sub(F.current_date() ,1).alias("prev_date")).withColumn("year",  F.year("prev_date")).withColumn("month",  F.month("prev_date")).withColumn("day",  F.dayofmonth("prev_date"))
+yesterday_year=df_prevdate.first()['year']
+yesterday_month=df_prevdate.first()['month']
+yesterday_day=df_prevdate.first()['day']
