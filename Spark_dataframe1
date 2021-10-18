@@ -5,9 +5,11 @@ help(eventsDF.distinct)
 df=spark.read.format("parquet").option("inferSchema", "true").option("header", true).load(file_path)
 
 ##remove null
-revenueDF = eventsDF.filter(col("ecommerce.purchase_revenue_in_usd").isNotNull())
+revenueDF = eventsDF.filter(col("ecommerce.purchase_revenue_in_usd").isNotNull())  #compared to dropna()  same?
+
 # count distinct rows
 eventsDF.distinct().count()
+
 # sort
 increaseTimestampsDF = eventsDF.sort("event_timestamp")
 decreaseTimestampsDF = eventsDF.sort(col("event_timestamp").desc())
