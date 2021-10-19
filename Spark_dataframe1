@@ -14,7 +14,7 @@ eventsDF.distinct().count()
 data_filtered=data.select("id", "signal").groupby("id")
 
 #groupby and agg
-data_groupby=data.groupBy("equipmentId").agg(F.sum("RightAir_error"), F.count("RightAir_error"))
+data_groupby=data.groupBy("equipmentId").agg(F.sum("RightAir_error").alias("Num_errors"), F.count("RightAir_error").alias("total_counts"))
 
 # sort
 increaseTimestampsDF = eventsDF.sort("event_timestamp")
