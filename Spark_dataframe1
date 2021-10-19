@@ -10,6 +10,12 @@ revenueDF = eventsDF.filter(col("ecommerce.purchase_revenue_in_usd").isNotNull()
 # count distinct rows
 eventsDF.distinct().count()
 
+#count groupby rows
+data_filtered=data.select("id", "signal").groupby("id")
+
+#groupby and agg
+data_groupby=data.groupBy("equipmentId").agg(F.sum("RightAir_error"), F.count("RightAir_error"))
+
 # sort
 increaseTimestampsDF = eventsDF.sort("event_timestamp")
 decreaseTimestampsDF = eventsDF.sort(col("event_timestamp").desc())
