@@ -36,3 +36,9 @@ for i in range(len(folders)):
   for file in files:
     if '.parquet' in file.name:
       dbutils.fs.cp(base_source+'/'+folder_name+'/'+file.name, base_target+base_source2+'/'+file.name)
+
+
+########load delta table   ##much quicker!!
+data=spark.read.format('delta').load(delta_path)
+########load parquet file
+data=spark.read.format("parquet").option("inferSchema","true").option("mergeSchema","true").load(filepath)
